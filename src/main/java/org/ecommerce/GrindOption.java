@@ -1,6 +1,6 @@
 package org.ecommerce;
 
-public enum grindOption {
+public enum GrindOption {
     Whole ,
     Ground
 }

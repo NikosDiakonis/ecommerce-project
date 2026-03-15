@@ -4,23 +4,15 @@ public class Product {
     String name;
     double price;
     String sku;
-    grindOption grindOpt;
 
 
-    public Product(String name, double price, String sku, grindOption grind) {
+
+    public Product(String name, double price, String sku) {
         this.name = name;
         this.price = price;
         this.sku = sku;
-        this.grindOpt = grind;
     }
 
-    public void setGrindOpt(grindOption grindOpt) {
-        this.grindOpt = grindOpt;
-    }
-
-    public grindOption getGrindOpt() {
-        return grindOpt;
-    }
 
     public String getName() {
         return name;
@@ -45,7 +37,7 @@ public class Product {
     }
 
     public String getInfo() {
-        String result = this.name + " " + this.sku + " " + "costs " + this.price + " Euros.Your Grind choice is " + this.grindOpt + ".";
+        String result = this.name + " " + this.sku + " " + "costs " + this.price + " Euros.";
         return result;
     }
 }
