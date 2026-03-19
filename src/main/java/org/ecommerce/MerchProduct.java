@@ -15,9 +15,16 @@ public class MerchProduct extends Product {
     public void setColor(MerchColor color) {
         this.color = color;
     }
+
+    @Override
     public String getInfo() {
-        String result = this.name + " " + this.sku + " " + "costs " + this.price + " Euros.Your MerchProduct color is " + this.color + ".";
+        String resultA = super.getInfo();
+        String resultB = "Your MerchProduct color is " + this.color + ".";
+        String result = resultA + resultB;
+
         return result;
     }
+
+
 }
 

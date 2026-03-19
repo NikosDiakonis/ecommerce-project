@@ -17,8 +17,12 @@ public class CoffeeProduct extends Product {
         return grindOpt;
     }
 
+    @Override
     public String getInfo() {
-        String result = this.name + " " + this.sku + " " + "costs " + this.price + " Euros.Your Grind choice is " + this.grindOpt + ".";
+        String resultA = super.getInfo();
+        String resultB = "Your Grind choice is " + this.grindOpt + ".";
+        String result = resultA + resultB;
+
         return result;
     }
 
