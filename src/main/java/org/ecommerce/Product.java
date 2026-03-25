@@ -1,11 +1,17 @@
+
 package org.ecommerce;
 
-public class Product {
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.Entity;
+
+@Entity
+public class Product extends PanacheEntity {
     String name;
     double price;
     String sku;
 
-
+    public Product() {
+    }
 
     public Product(String name, double price, String sku) {
         this.name = name;
@@ -33,7 +39,7 @@ public class Product {
         this.price = price;
     }
     public void setSku(String sku) {
-
+        this.sku = sku;
     }
 
     public String getInfo() {
