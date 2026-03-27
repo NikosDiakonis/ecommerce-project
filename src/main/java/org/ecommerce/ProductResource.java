@@ -14,6 +14,7 @@ public class ProductResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
+
     public Response addProduct(Product product) {
         productRepository.persist(product);
         return Response.status(201).entity(product).build();
