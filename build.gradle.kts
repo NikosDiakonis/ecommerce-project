@@ -21,6 +21,7 @@ dependencies {
     implementation("io.quarkus:quarkus-jdbc-postgresql")
     testImplementation("io.quarkus:quarkus-junit")
     testImplementation("io.rest-assured:rest-assured")
+    testImplementation("org.mockito:mockito-core:5.11.0")
 
 }
 
