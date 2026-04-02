@@ -11,13 +11,21 @@ import jakarta.ws.rs.core.Response;
 public class ProductResource {
     @Inject
     ProductRepository productRepository;
+    @Inject
+    ProductService productService;
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
 
     public Response addProduct(Product product) {
-        productRepository.persist(product);
-        return Response.status(201).entity(product).build();
+        try {
+            productService.addProduct(product);
+            productRepository.persist(product);
+            return Response.status(201).entity(product).build();
+
+        } catch (IllegalArgumentException e) {
+            return Response.status(400).entity(product).build();
+        }
     }
     @GET
     @Produces(MediaType.APPLICATION_JSON)

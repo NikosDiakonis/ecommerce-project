@@ -1,7 +1,12 @@
 package org.ecommerce;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+
+@ApplicationScoped
 public class ProductService {
-    private ProductRepository repository;
+    @Inject
+     ProductRepository repository;
 
     public ProductService() {}
 
