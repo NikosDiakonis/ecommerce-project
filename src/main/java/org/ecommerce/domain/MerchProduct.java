@@ -1,4 +1,4 @@
-package org.ecommerce;
+package org.ecommerce.domain;
 
 public class MerchProduct extends Product {
     MerchColor color;

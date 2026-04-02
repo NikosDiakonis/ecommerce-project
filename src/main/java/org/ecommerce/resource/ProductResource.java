@@ -1,16 +1,17 @@
-package org.ecommerce;
+package org.ecommerce.resource;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.ecommerce.service.ProductService;
+import org.ecommerce.domain.Product;
 
 @Path("/products")
 
 public class ProductResource {
-    @Inject
-    ProductRepository productRepository;
+
     @Inject
     ProductService productService;
     @POST
@@ -20,7 +21,6 @@ public class ProductResource {
     public Response addProduct(Product product) {
         try {
             productService.addProduct(product);
-            productRepository.persist(product);
             return Response.status(201).entity(product).build();
 
         } catch (IllegalArgumentException e) {
@@ -30,6 +30,6 @@ public class ProductResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getProducts(){
-        return Response.status(200).entity(productRepository.listAll()).build();
+        return Response.status(200).entity(productService.getAllProducts()).build();
     }
 }

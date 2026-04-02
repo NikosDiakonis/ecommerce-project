@@ -1,4 +1,4 @@
-package org.ecommerce;
+package org.ecommerce.domain;
 
 public class CoffeeProduct extends Product {
     GrindOption grindOpt;

@@ -1,14 +1,14 @@
 
-package org.ecommerce;
+package org.ecommerce.domain;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
 
 @Entity
 public class Product extends PanacheEntity {
-    String name;
-    double price;
-    String sku;
+   public String name;
+   public double price;
+   public String sku;
 
     public Product() {
     }

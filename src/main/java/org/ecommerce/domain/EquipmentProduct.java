@@ -1,4 +1,4 @@
-package org.ecommerce;
+package org.ecommerce.domain;
 
 public class EquipmentProduct extends Product{
 boolean extension;

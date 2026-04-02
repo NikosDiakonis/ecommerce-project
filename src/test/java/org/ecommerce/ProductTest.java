@@ -1,5 +1,6 @@
 package org.ecommerce;
 
+import org.ecommerce.domain.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

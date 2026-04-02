@@ -1,5 +1,8 @@
 package org.ecommerce;
 
+import org.ecommerce.domain.Product;
+import org.ecommerce.repository.ProductRepository;
+import org.ecommerce.service.ProductService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
