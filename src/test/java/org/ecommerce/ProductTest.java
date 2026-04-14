@@ -30,7 +30,7 @@ public class ProductTest {
     }
 
     @Test
-    public void testEquipment() {
+    public void testEquipment() {   
         EquipmentProduct equiptment = new EquipmentProduct("SampleEquipment", 600.0, "skuEqpt", true);
         String resultEquipment = equiptment.getInfo();
         assertEquals("SampleEquipment skuEqpt costs 600.0 Euros. Your Warranty Extension is active.", resultEquipment);

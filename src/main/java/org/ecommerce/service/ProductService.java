@@ -1,5 +1,7 @@
 package org.ecommerce.service;
 
+import io.quarkus.panache.common.Page;
+import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.ecommerce.domain.Product;
@@ -28,7 +30,7 @@ public class ProductService {
             }
     }
 
-    public List<Product> getAllProducts(){
-        return repository.listAll();
+    public List<Product> getAllProducts(int page, int size, String sortBy) {
+        return repository.findAll(Sort.by(sortBy)).page(Page.of(page,size)).list();
     }
 }

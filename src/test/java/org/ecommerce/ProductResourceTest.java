@@ -7,6 +7,7 @@ import org.ecommerce.domain.Product;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 
 @QuarkusTest
@@ -112,5 +113,28 @@ public class ProductResourceTest {
                 .post("/products")
                 .then()
                 .statusCode(400);
+    }
+
+    @Test
+    @TestTransaction
+    public void shouldTestPagination() {
+        for(int i = 0; i <= 14; i++) {
+            Product product = new Product("testProduct" + i, 1*i, "testSku" + i);
+            given()
+            .contentType(ContentType.JSON)
+                    .body(product)
+                    .when()
+                    .post("/products")
+                    .then()
+                    .statusCode(201);
+        }
+        given()
+        .contentType(ContentType.JSON)
+                .when()
+                .get("/products?page=0&size=10&sortBy=name")
+                .then()
+                .statusCode(200)
+                .body("size()", equalTo(10));
+
     }
 }
