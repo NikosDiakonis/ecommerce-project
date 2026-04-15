@@ -1,6 +1,5 @@
 package org.ecommerce.resource;
 
-import io.quarkus.panache.common.Sort;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
@@ -30,8 +29,18 @@ public class ProductResource {
     }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getProducts(@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sortBy") String sortBy) {
-        Sort sort = (sortBy != null) ? Sort.by(sortBy) : Sort.by("name");
-        return Response.status(200).entity(productService.getAllProducts(page,size,sortBy)).build();
+    public Response getProducts(@QueryParam("page") @DefaultValue("0") int page,
+                                @QueryParam("size") @DefaultValue("10") int size,
+                                @QueryParam("sortBy") String sortBy) {
+        String finalSort = "name";
+
+        if("price".equals(sortBy)) {
+            finalSort = "price";
+        }else if("sku".equals(sortBy)) {
+            finalSort = "sku";
+        }else if("name".equals(sortBy)) {
+            finalSort = "name";
+        }
+        return Response.status(200).entity(productService.getAllProducts(page,size,finalSort)).build();
     }
 }
