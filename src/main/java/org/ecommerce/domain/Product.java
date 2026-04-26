@@ -1,11 +1,17 @@
 
 package org.ecommerce.domain;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
 
 @Entity
-public class Product extends PanacheEntity {
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include =  JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = PhysicalProduct.class, name = "physical")
+})
+public abstract class Product extends PanacheEntity {
    public String name;
    public double price;
    public String sku;

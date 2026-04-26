@@ -9,7 +9,7 @@ public class ProductTest {
 
     @Test
     public void testProduct() {
-        Product p1 = new Product("testName", 100.0, "skuTest");
+        Product p1 = new PhysicalProduct("testName", 100.0, "skuTest",10);
         String result = p1.getInfo();
         assertEquals("testName skuTest costs 100.0 Euros.",  result );
             }

@@ -5,6 +5,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.transaction.Transactional;
 import org.ecommerce.domain.Product;
+import org.ecommerce.domain.PhysicalProduct;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +24,7 @@ public class ProductResourceTest {
     @Test
     @TestTransaction
     public void shouldReturn201() {
-        Product product = new Product("testProductOne", 60.0, "testSku1");
+        Product product = new PhysicalProduct("testProductOne", 60.0, "testSku1",250);
         given()
                 .contentType(ContentType.JSON)
                 .body(product)
@@ -45,7 +46,7 @@ public class ProductResourceTest {
     @Test
     @TestTransaction
     public void shouldReturnSavedProduct() {
-        Product product = new Product("testProductTwo", 60.0, "testSku2");
+        Product product = new PhysicalProduct("testProductTwo", 60.0, "testSku2",251);
 
         given()
                 .contentType(ContentType.JSON)
@@ -66,7 +67,7 @@ public class ProductResourceTest {
     @Test
     @TestTransaction
     public void shouldReturn400WhenEmptyField(){
-        Product product = new Product("", 60.0, "");
+        Product product = new PhysicalProduct("", 60.0, "",252);
 
         given()
                 .contentType(ContentType.JSON)
@@ -82,8 +83,8 @@ public class ProductResourceTest {
     @Test
     @TestTransaction
     public void shouldReturn400WhenDuplicateSku(){
-        Product product = new Product("testProductThree", 60.0, "duplSku");
-        Product product2 = new Product("testProdTres", 60.0, "duplSku");
+        Product product = new PhysicalProduct("testProductThree", 60.0, "duplSku",253);
+        Product product2 = new PhysicalProduct("testProdTres", 60.0, "duplSku",253);
         given()
                 .contentType(ContentType.JSON)
                 .body(product)
@@ -104,8 +105,8 @@ public class ProductResourceTest {
     @Test
     @TestTransaction
     public void shouldReturn400WhenDuplicateName(){
-        Product product = new Product("dublName", 60.0, "testSku4");
-        Product productTwo = new Product("dublName", 60.0, "testerSku4");
+        Product product = new PhysicalProduct("dublName", 60.0, "testSku4",254);
+        Product productTwo = new PhysicalProduct("dublName", 60.0, "testerSku4",254);
 
         given()
                 .contentType(ContentType.JSON)
@@ -127,7 +128,7 @@ public class ProductResourceTest {
     @TestTransaction
     public void shouldTestPagination() {
         for(int i = 0; i <= 14; i++) {
-            Product product = new Product("testProductNum" + i, 1*i, "testSku" + i);
+            Product product = new PhysicalProduct("testProductNum" + i, 1*i, "testSku" + i,30*i);
             given()
             .contentType(ContentType.JSON)
                     .body(product)
@@ -150,7 +151,7 @@ public class ProductResourceTest {
     @TestTransaction
     public void shouldTestSortingByName() {
         for(int i = 0; i <= 14; i++) {
-            Product product = new Product("testProductNo" + i, 1*i, "testSku" + i);
+            Product product = new PhysicalProduct("testProductNo" + i, 1*i, "testSku" + i,30*i);
             given()
                     .contentType(ContentType.JSON)
                     .body(product)
@@ -173,7 +174,7 @@ public class ProductResourceTest {
     @TestTransaction
     public void shouldTestSortingByPrice() {
         for(int i = 0; i <= 14; i++) {
-            Product product = new Product("testProductNo" + i, 1*i, "testSku" + i);
+            Product product = new PhysicalProduct("testProductNo" + i, 1*i, "testSku" + i,30*i);
             given()
                     .contentType(ContentType.JSON)
                     .body(product)
@@ -190,6 +191,27 @@ public class ProductResourceTest {
                 .statusCode(200)
                 .body("size()", equalTo(10))
                 .body("[0].price", equalTo(0.0f));
+
+
+    }
+
+    @Test
+    @TestTransaction
+    public void shouldSavePhysicalProduct() {
+        PhysicalProduct phProduct = new PhysicalProduct("EspressoPh", 60.0, "espph", 250);
+        given()
+        .contentType(ContentType.JSON)
+                .body(phProduct)
+                .post("/products/physical")
+                .then()
+                .statusCode(201);
+
+        given()
+        .contentType(ContentType.JSON)
+                .get("/products")
+                .then()
+                .statusCode(200)
+                .body("weight", hasItem(250.0f)); // 250.0f  = test search for float
 
 
     }
