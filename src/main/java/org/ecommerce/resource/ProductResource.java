@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.ecommerce.domain.DigitalProduct;
 import org.ecommerce.domain.PhysicalProduct;
 import org.ecommerce.domain.Product;
 import org.ecommerce.service.ProductService;
@@ -35,6 +36,20 @@ public class ProductResource {
     @Path("/physical")
 
     public Response addPhysical(PhysicalProduct product) {
+        try {
+            productService.addProduct(product);
+            return Response.status(201).entity(product).build();
+        } catch (IllegalArgumentException e) {
+            return Response.status(400).entity(product).build();
+        }
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Transactional
+    @Path("/digital")
+
+    public Response addDigital(DigitalProduct product) {
         try {
             productService.addProduct(product);
             return Response.status(201).entity(product).build();

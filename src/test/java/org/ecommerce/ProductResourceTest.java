@@ -4,6 +4,7 @@ import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.transaction.Transactional;
+import org.ecommerce.domain.DigitalProduct;
 import org.ecommerce.domain.Product;
 import org.ecommerce.domain.PhysicalProduct;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,7 +46,7 @@ public class ProductResourceTest {
     }
     @Test
     @TestTransaction
-    public void shouldReturnSavedProduct() {
+    public void shouldReturnCreatedProduct() {
         Product product = new PhysicalProduct("testProductTwo", 60.0, "testSku2",251);
 
         given()
@@ -197,7 +198,7 @@ public class ProductResourceTest {
 
     @Test
     @TestTransaction
-    public void shouldSavePhysicalProduct() {
+    public void shouldCreatePhysicalProduct() {
         PhysicalProduct phProduct = new PhysicalProduct("EspressoPh", 60.0, "espph", 250);
         given()
         .contentType(ContentType.JSON)
@@ -214,5 +215,23 @@ public class ProductResourceTest {
                 .body("weight", hasItem(250.0f)); // 250.0f  = test search for float
 
 
+    }
+
+    @Test
+    @TestTransaction
+    public void shouldCreateDigitalProduct() {
+        DigitalProduct dgProduct = new DigitalProduct("BrewInstructiong",60.00,"brewIns","www.diakonbrew.com/digital/manual/brewinstructions",105.41);
+        given()
+        .contentType(ContentType.JSON)
+                .body(dgProduct)
+                .post("/products/digital")
+                .then()
+                .statusCode(201);
+        given()
+        .contentType(ContentType.JSON)
+                .get("/products")
+                .then()
+                .statusCode(200)
+                .body("fileSize", hasItem(105.41f));
     }
 }

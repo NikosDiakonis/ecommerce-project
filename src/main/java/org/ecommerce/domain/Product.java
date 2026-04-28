@@ -9,7 +9,8 @@ import jakarta.persistence.Entity;
 @Entity
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include =  JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = PhysicalProduct.class, name = "physical")
+        @JsonSubTypes.Type(value = PhysicalProduct.class, name = "physical"),
+                @JsonSubTypes.Type(value = DigitalProduct.class, name = "digital")
 })
 public abstract class Product extends PanacheEntity {
    public String name;

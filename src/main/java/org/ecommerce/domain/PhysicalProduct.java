@@ -5,6 +5,10 @@ import jakarta.persistence.Entity;
 @Entity
 public class PhysicalProduct  extends Product {
    public double weight;
+   // TODO: refactor to Dimensions class (length, width, height) when needed
+    public String dimensions;
+
+
 
     public PhysicalProduct() {
         this.weight = weight;
