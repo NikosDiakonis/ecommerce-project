@@ -9,9 +9,8 @@ public class FixedDiscountTest {
     @Test
     public void testFixedDiscount() {
         FixedDiscount f1 = new FixedDiscount(10);
-        double result = f1.applyDiscount(100.0);
+        double result = f1.applyDiscount(100.0,1);
         assertEquals(90.0,result);
-
     }
 
 }

@@ -1,17 +1,11 @@
 package org.ecommerce.domain;
 
-public class PercentageDiscount implements DiscountStrategy {
-    double percentage;
-
-
-    public PercentageDiscount(double percentage) {
-        this.percentage = percentage;
-    }
+public record PercentageDiscount(double percentage) implements DiscountStrategy {
 
     @Override
-    public double applyDiscount(double price) {
+    public double applyDiscount(double price, int quantity) {
         double finalPercentage = 0.01 * percentage;
-        double result = price * (1-finalPercentage);
+        double result = (price * (1 - finalPercentage)) * quantity;
         return result;
     }
 }

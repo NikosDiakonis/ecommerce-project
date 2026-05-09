@@ -1,15 +1,11 @@
 package org.ecommerce.domain;
 
-public class FixedDiscount implements DiscountStrategy {
-    double fixedAmount;
+public record FixedDiscount(double fixedAmount) implements DiscountStrategy {
 
-    public FixedDiscount(double fixedAmount) {
-        this.fixedAmount = fixedAmount;
-    }
 
     @Override
-    public double applyDiscount(double price) {
-        double result = price - fixedAmount;
+    public double applyDiscount(double price, int quantity) {
+        double result = (price - fixedAmount) *  quantity;
         return result;
     }
 }

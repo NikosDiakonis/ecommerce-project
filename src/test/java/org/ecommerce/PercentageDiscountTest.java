@@ -9,7 +9,7 @@ public class PercentageDiscountTest {
     @Test
     public void testPercentageDiscount() {
         PercentageDiscount p1 = new PercentageDiscount(25);
-        double result = p1.applyDiscount(100);
+        double result = p1.applyDiscount(100,1);
         assertEquals(75,result);
     }
 }
