@@ -1,7 +1,7 @@
 package org.ecommerce.domain;
 
-public class ΒuyTwoGetOneDiscount implements DiscountStrategy {
-    public ΒuyTwoGetOneDiscount() {
+public class Buy2Get1Discount implements DiscountStrategy {
+    public Buy2Get1Discount() {
     }
 
     @Override

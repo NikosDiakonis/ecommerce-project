@@ -1,6 +1,6 @@
 package org.ecommerce;
 
-import org.ecommerce.domain.ΒuyTwoGetOneDiscount;
+import org.ecommerce.domain.Buy2Get1Discount;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class BuyTwoGetOneDiscountTest {
     @Test
     public void testBuyTwoGetOneDiscount() {
-        ΒuyTwoGetOneDiscount b1 = new ΒuyTwoGetOneDiscount();
+        Buy2Get1Discount b1 = new Buy2Get1Discount();
         double result = b1.applyDiscount(20,4);
         assertEquals(60,result);
 

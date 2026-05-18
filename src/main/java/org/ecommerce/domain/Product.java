@@ -7,6 +7,9 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.OneToMany;
+
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -15,13 +18,18 @@ import jakarta.persistence.InheritanceType;
         @JsonSubTypes.Type(value = PhysicalProduct.class, name = "physical"),
                 @JsonSubTypes.Type(value = DigitalProduct.class, name = "digital")
 })
+
 public abstract class Product extends PanacheEntity {
    public String name;
    public double price;
    public String sku;
 
+   @OneToMany(mappedBy = "product")
+   public List<Discount> discounts;
+
     public Product() {
     }
+
 
     public Product(String name, double price, String sku) {
         this.name = name;
