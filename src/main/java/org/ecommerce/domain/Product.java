@@ -9,6 +9,7 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToMany;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,7 +26,7 @@ public abstract class Product extends PanacheEntity {
    public String sku;
 
    @OneToMany(mappedBy = "product")
-   public List<Discount> discounts;
+   public List<Discount> discounts = new ArrayList<>();
 
     public Product() {
     }
