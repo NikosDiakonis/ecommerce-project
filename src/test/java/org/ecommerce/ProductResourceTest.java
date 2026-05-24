@@ -21,7 +21,8 @@
         @BeforeEach
         @Transactional
         public void cleanDatabase() {
-            Product.deleteAll(); // Αδειάζει τον πίνακα Product
+            Discount.deleteAll();   // children first
+            Product.deleteAll();    // then parents
         }
 
         @Test

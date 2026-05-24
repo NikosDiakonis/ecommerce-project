@@ -35,9 +35,8 @@ public abstract class Product extends PanacheEntity {
         this.sku = sku;
     }
 
-    public String getInfo() {
-        String result = this.name + " " + this.sku + " " + "costs " + this.price + " Euros.";
-        return result;
-    }
+
+
+
 }
 

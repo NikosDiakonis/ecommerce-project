@@ -20,7 +20,7 @@ public class PricingService {
     }
 
     public double calculatePrice(Product product, int quantity) {
-        double bestValue = product.getPrice()*quantity;
+        double bestValue = product.price*quantity;
         double finalResult = bestValue;
 
         // TODO: Implement priority-based discount selection
