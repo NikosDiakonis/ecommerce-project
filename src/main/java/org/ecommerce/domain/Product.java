@@ -4,10 +4,7 @@ package org.ecommerce.domain;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +22,7 @@ public abstract class Product extends PanacheEntity {
    public double price;
    public String sku;
 
-   @OneToMany(mappedBy = "product")
+   @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
    public List<Discount> discounts = new ArrayList<>();
 
     public Product() {

@@ -8,6 +8,7 @@ import jakarta.ws.rs.core.Response;
 import org.ecommerce.domain.DigitalProduct;
 import org.ecommerce.domain.PhysicalProduct;
 import org.ecommerce.domain.Product;
+import org.ecommerce.service.PricingService;
 import org.ecommerce.service.ProductService;
 
 @Path("/products")
@@ -16,6 +17,8 @@ public class ProductResource {
 
     @Inject
     ProductService productService;
+    @Inject
+    PricingService pricingService;
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
@@ -74,5 +77,13 @@ public class ProductResource {
             finalSort = "name";
         }
         return Response.status(200).entity(productService.getAllProducts(page,size,finalSort)).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{id}/price")
+    public Response getPrice(@PathParam("id") Long id,@QueryParam("quantity") int quantity) {
+        Product product = Product.findById(id);
+        return Response.status(200).entity(pricingService.calculatePrice(product,quantity)).build();
     }
 }

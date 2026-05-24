@@ -1,5 +1,8 @@
 package org.ecommerce.domain;
 
+import jakarta.enterprise.context.ApplicationScoped;
+
+@ApplicationScoped
 public class DiscountStrategyFactory {
     public DiscountStrategy getStrategy(String discountType, double discountValue) {
 

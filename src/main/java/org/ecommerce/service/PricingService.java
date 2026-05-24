@@ -1,13 +1,17 @@
 package org.ecommerce.service;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import org.ecommerce.domain.Discount;
 import org.ecommerce.domain.DiscountStrategy;
 import org.ecommerce.domain.DiscountStrategyFactory;
 import org.ecommerce.domain.Product;
 
+@ApplicationScoped
 public class PricingService {
 
     private  DiscountStrategyFactory factory = new  DiscountStrategyFactory();
+
+
 
     public PricingService(){}
 
