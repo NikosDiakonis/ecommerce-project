@@ -11,7 +11,7 @@ public class PhysicalProduct  extends Product {
 
 
     public PhysicalProduct() {
-        this.weight = weight;
+        //JPA needs this
     }
 
     public PhysicalProduct(String name, double price, String sku, double weight) {
@@ -19,11 +19,4 @@ public class PhysicalProduct  extends Product {
         this.weight = weight;
     }
 
-    public double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
 }
