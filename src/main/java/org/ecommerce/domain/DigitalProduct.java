@@ -8,8 +8,7 @@ public class DigitalProduct  extends Product {
     public double fileSize;
 
     public DigitalProduct() {
-        this.downloadLink = downloadLink;
-        this.fileSize = fileSize;
+        //JPA needs this
     }
 
     public DigitalProduct(String name, double price, String sku, String downloadLink, double fileSize) {
@@ -18,19 +17,4 @@ public class DigitalProduct  extends Product {
         this.fileSize = fileSize;
     }
 
-    public String getDownloadLink() {
-        return downloadLink;
-    }
-
-    public void setDownloadLink(String downloadLink) {
-        this.downloadLink = downloadLink;
-    }
-
-    public double getFileSize() {
-        return fileSize;
-    }
-
-    public void setFileSize(double fileSize) {
-        this.fileSize = fileSize;
-    }
 }
