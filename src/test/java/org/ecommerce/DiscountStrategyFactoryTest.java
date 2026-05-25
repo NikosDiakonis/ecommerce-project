@@ -11,7 +11,7 @@ public class DiscountStrategyFactoryTest {
         DiscountStrategyFactory dSFTestOne = new DiscountStrategyFactory();
         DiscountStrategy result = dSFTestOne.getStrategy("FIXED",10.00);
         assertInstanceOf(FixedDiscount.class, result);
-
+        //TODO: Assert discount value
     }
 
     @Test

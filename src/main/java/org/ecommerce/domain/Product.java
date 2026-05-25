@@ -16,8 +16,9 @@ import java.util.List;
         @JsonSubTypes.Type(value = PhysicalProduct.class, name = "physical"),
                 @JsonSubTypes.Type(value = DigitalProduct.class, name = "digital")
 })
-
+//TODO: rename to Product entity
 public abstract class Product extends PanacheEntity {
+
    public String name;
    public double price;
    public String sku;

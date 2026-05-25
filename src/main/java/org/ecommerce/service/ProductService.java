@@ -22,8 +22,10 @@ public class ProductService {
     }
 
     public void addProduct(Product product) {
+        //TODO: add @NotBlank validation on the request object and remove this validation check
         if (product.name.equals("") || product.sku.equals("")) {
             throw new IllegalArgumentException("Product name is empty");
+            //TODO: add unique indexes on sku and name and remove this if
         } else if (repository.count("sku = ?1", product.sku) > 0 || repository.count("name = ?1", product.name) > 0) {
             throw new IllegalArgumentException("Duplicate Product");
         } else {
@@ -39,6 +41,7 @@ public class ProductService {
 
 
             repository.persist(product);
+            //TODO: after the persist function, the id will have a value, use this to create a response object
         }
     }
 

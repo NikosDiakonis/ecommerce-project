@@ -46,6 +46,7 @@
                     .get("/products")
                     .then()
                         .statusCode(200);
+            //TODO: Assert empty list returned
         }
         @Test
         @TestTransaction
@@ -106,6 +107,7 @@
                             .statusCode(400);
 
         }
+        //TODO: Merge with the above test (data driven tests)
         @Test
         @TestTransaction
         public void shouldReturn400WhenDuplicateName(){
