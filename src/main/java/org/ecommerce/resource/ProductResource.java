@@ -37,7 +37,6 @@ public class ProductResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
     @Path("/physical")
-
     public Response addPhysical(PhysicalProduct product) {
         try {
             productService.addProduct(product);
@@ -51,7 +50,6 @@ public class ProductResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
     @Path("/digital")
-
     public Response addDigital(DigitalProduct product) {
         try {
             productService.addProduct(product);
