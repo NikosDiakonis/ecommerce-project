@@ -13,24 +13,24 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include =  JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = PhysicalProduct.class, name = "physical"),
-                @JsonSubTypes.Type(value = DigitalProduct.class, name = "digital")
+        @JsonSubTypes.Type(value = PhysicalProductEntity.class, name = "physical"),
+                @JsonSubTypes.Type(value = DigitalProductEntity.class, name = "digital")
 })
-//TODO: rename to Product entity
-public abstract class Product extends PanacheEntity {
+//TODO: rename to ProductEntity entity
+public abstract class ProductEntity extends PanacheEntity {
 
    public String name;
    public double price;
    public String sku;
 
-   @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+   @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL)
    public List<Discount> discounts = new ArrayList<>();
 
-    public Product() {
+    public ProductEntity() {
     }
 
 
-    public Product(String name, double price, String sku) {
+    public ProductEntity(String name, double price, String sku) {
         this.name = name;
         this.price = price;
         this.sku = sku;

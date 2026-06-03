@@ -5,16 +5,16 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.ecommerce.domain.DigitalProduct;
-import org.ecommerce.domain.PhysicalProduct;
-import org.ecommerce.domain.Product;
+import org.ecommerce.domain.DigitalProductEntity;
+import org.ecommerce.domain.PhysicalProductEntity;
+import org.ecommerce.domain.ProductEntity;
 import org.ecommerce.service.PricingService;
 import org.ecommerce.service.ProductService;
 
 @Path("/products")//TODO: Check RESTfull guidelines, I think that plural is not recommended.
 public class ProductResource {
 
-    //TODO: add access modifiers (private)
+
     @Inject
     private ProductService productService;
 
@@ -24,15 +24,15 @@ public class ProductResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
-    //TODO: Create new DTO for the new product request, do not use the db entity. Check mapstruct library for conversion.
-    public Response addProduct(Product product) {
+    //TODO: Create new DTO for the new productEntity request, do not use the db entity. Check mapstruct library for conversion.
+    public Response addProduct(ProductEntity productEntity) {
         try {
-            //TODO: the service should not be void, and the response should have a product with an Id.
-            productService.addProduct(product);
+            //TODO: the service should not be void, and the response should have a productEntity with an Id.
+            productService.addProduct(productEntity);
             //TODO: use enums instead of hardcoded numbers
-            return Response.status(201).entity(product).build();
+            return Response.status(201).entity(productEntity).build();
         } catch (IllegalArgumentException e) {
-            return Response.status(400).entity(product).build();
+            return Response.status(400).entity(productEntity).build();
         }
         //TODO: do not try catch in every method, use an ExceptionMapper for the generic Exception and create a common error response.
     }
@@ -41,7 +41,7 @@ public class ProductResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
     @Path("/physical")
-    public Response addPhysical(PhysicalProduct product) {
+    public Response addPhysical(PhysicalProductEntity product) {
         try {
             productService.addProduct(product);
             return Response.status(201).entity(product).build();
@@ -54,7 +54,7 @@ public class ProductResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
     @Path("/digital")
-    public Response addDigital(DigitalProduct product) {
+    public Response addDigital(DigitalProductEntity product) {
         try {
             productService.addProduct(product);
             return Response.status(201).entity(product).build();
@@ -85,8 +85,8 @@ public class ProductResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}/price")
     public Response getPrice(@PathParam("id") Long id,@QueryParam("quantity") int quantity) {
-        //TODO: add the findby to the product service
-        Product product = Product.findById(id);
-        return Response.status(200).entity(pricingService.calculatePrice(product,quantity)).build();
+        //TODO: add the findby to the productEntity service
+        ProductEntity productEntity = ProductEntity.findById(id);
+        return Response.status(200).entity(pricingService.calculatePrice(productEntity,quantity)).build();
     }
 }

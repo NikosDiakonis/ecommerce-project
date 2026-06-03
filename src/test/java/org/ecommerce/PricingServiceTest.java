@@ -1,8 +1,8 @@
 package org.ecommerce;
 
-import org.ecommerce.domain.DigitalProduct;
+import org.ecommerce.domain.DigitalProductEntity;
 import org.ecommerce.domain.Discount;
-import org.ecommerce.domain.PhysicalProduct;
+import org.ecommerce.domain.PhysicalProductEntity;
 import org.ecommerce.service.PricingService;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +12,7 @@ public class PricingServiceTest {
     @Test
     public void pricingServiceTest1() {
         PricingService serviceTest1 = new PricingService();
-        PhysicalProduct espresso = new PhysicalProduct("Espresso",60,"ESP-001",500);
+        PhysicalProductEntity espresso = new PhysicalProductEntity("Espresso",60,"ESP-001",500);
         Discount discount = new Discount();
         discount.discountType = "FIXED";
         discount.discountValue = 10.00;
@@ -25,7 +25,7 @@ public class PricingServiceTest {
     @Test
     public void pricingServiceTest2() {
         PricingService serviceTest2 = new PricingService();
-        PhysicalProduct espressoBlend = new PhysicalProduct("EspressoBlend",60,"ESBL-001",500);
+        PhysicalProductEntity espressoBlend = new PhysicalProductEntity("EspressoBlend",60,"ESBL-001",500);
         Discount discount = new Discount();
         discount.discountType = "PERCENT";
         discount.discountValue = 50;
@@ -37,7 +37,7 @@ public class PricingServiceTest {
     @Test
     public void pricingServiceTest3() {
         PricingService serviceTest3 = new PricingService();
-        PhysicalProduct espressoGold = new PhysicalProduct("EspressoGold",60,"ESGL-001",500);
+        PhysicalProductEntity espressoGold = new PhysicalProductEntity("EspressoGold",60,"ESGL-001",500);
         Discount discountFixed = new Discount();
         discountFixed.discountType = "FIXED";
         discountFixed.discountValue = 10;
@@ -53,7 +53,7 @@ public class PricingServiceTest {
     @Test
     public void pricingServiceTest4() {
         PricingService serviceTest4 = new PricingService();
-        DigitalProduct recipesEbook = new DigitalProduct("BestRecipies", 100, "EBK001","download.com/download",600);
+        DigitalProductEntity recipesEbook = new DigitalProductEntity("BestRecipies", 100, "EBK001","download.com/download",600);
         Discount discount = new Discount();
         discount.discountType = "B2G1";
         discount.discountValue = 0;

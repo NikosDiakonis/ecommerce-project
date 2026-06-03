@@ -3,18 +3,18 @@ package org.ecommerce.domain;
 import jakarta.persistence.Entity;
 
 @Entity
-public class PhysicalProduct  extends Product {
+public class PhysicalProductEntity extends ProductEntity {
    public double weight;
    // TODO: refactor to Dimensions class (length, width, height) when needed
     public String dimensions;
 
 
 
-    public PhysicalProduct() {
+    public PhysicalProductEntity() {
         //JPA needs this
     }
 
-    public PhysicalProduct(String name, double price, String sku, double weight) {
+    public PhysicalProductEntity(String name, double price, String sku, double weight) {
         super(name, price, sku);
         this.weight = weight;
     }

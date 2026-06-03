@@ -3,15 +3,15 @@ package org.ecommerce.domain;
 import jakarta.persistence.Entity;
 
 @Entity
-public class DigitalProduct  extends Product {
+public class DigitalProductEntity extends ProductEntity {
     public String downloadLink;
     public double fileSize;
 
-    public DigitalProduct() {
+    public DigitalProductEntity() {
         //JPA needs this
     }
 
-    public DigitalProduct(String name, double price, String sku, String downloadLink, double fileSize) {
+    public DigitalProductEntity(String name, double price, String sku, String downloadLink, double fileSize) {
         super(name, price, sku);
         this.downloadLink = downloadLink;
         this.fileSize = fileSize;

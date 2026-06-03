@@ -4,10 +4,9 @@
     import io.quarkus.test.junit.QuarkusTest;
     import io.restassured.http.ContentType;
     import jakarta.transaction.Transactional;
-    import org.ecommerce.domain.DigitalProduct;
-    import org.ecommerce.domain.Discount;
-    import org.ecommerce.domain.PhysicalProduct;
-    import org.ecommerce.domain.Product;
+    import org.ecommerce.domain.*;
+    import org.ecommerce.domain.PhysicalProductEntity;
+    import org.ecommerce.domain.ProductEntity;
     import org.junit.jupiter.api.BeforeEach;
     import org.junit.jupiter.api.Test;
 
@@ -17,21 +16,21 @@
     import static org.junit.jupiter.api.Assertions.assertEquals;
 
     @QuarkusTest
-    public class ProductResourceTest {
+    public class ProductEntityResourceTest {
         @BeforeEach
         @Transactional
         public void cleanDatabase() {
             Discount.deleteAll();   // children first
-            Product.deleteAll();    // then parents
+            ProductEntity.deleteAll();    // then parents
         }
 
         @Test
         @TestTransaction
         public void shouldReturn201() {
-            Product product = new PhysicalProduct("testProductOne", 60.0, "testSku1",250);
+            ProductEntity productEntity = new PhysicalProductEntity("testProductOne", 60.0, "testSku1",250);
             given()
                     .contentType(ContentType.JSON)
-                    .body(product)
+                    .body(productEntity)
                     .when()
                     .post("/products")
                     .then()
@@ -51,11 +50,11 @@
         @Test
         @TestTransaction
         public void shouldReturnCreatedProduct() {
-            Product product = new PhysicalProduct("testProductTwo", 60.0, "testSku2",251);
+            ProductEntity productEntity = new PhysicalProductEntity("testProductTwo", 60.0, "testSku2",251);
 
             given()
                     .contentType(ContentType.JSON)
-                    .body(product)
+                    .body(productEntity)
                     .when()
                     .post("/products")
                     .then()
@@ -72,11 +71,11 @@
         @Test
         @TestTransaction
         public void shouldReturn400WhenEmptyField(){
-            Product product = new PhysicalProduct("", 60.0, "",252);
+            ProductEntity productEntity = new PhysicalProductEntity("", 60.0, "",252);
 
             given()
                     .contentType(ContentType.JSON)
-                    .body(product)
+                    .body(productEntity)
                     .when()
                     .post("/products")
                     .then()
@@ -88,11 +87,11 @@
         @Test
         @TestTransaction
         public void shouldReturn400WhenDuplicateSku(){
-            Product product = new PhysicalProduct("testProductThree", 60.0, "duplSku",253);
-            Product product2 = new PhysicalProduct("testProdTres", 60.0, "duplSku",253);
+            ProductEntity productEntity = new PhysicalProductEntity("testProductThree", 60.0, "duplSku",253);
+            ProductEntity productEntity2 = new PhysicalProductEntity("testProdTres", 60.0, "duplSku",253);
             given()
                     .contentType(ContentType.JSON)
-                    .body(product)
+                    .body(productEntity)
                     .when()
                     .post("/products")
                     .then()
@@ -100,7 +99,7 @@
 
                     given()
                             .contentType(ContentType.JSON)
-                            .body(product2)
+                            .body(productEntity2)
                             .when()
                             .post("/products")
                             .then()
@@ -111,19 +110,19 @@
         @Test
         @TestTransaction
         public void shouldReturn400WhenDuplicateName(){
-            Product product = new PhysicalProduct("dublName", 60.0, "testSku4",254);
-            Product productTwo = new PhysicalProduct("dublName", 60.0, "testerSku4",254);
+            ProductEntity productEntity = new PhysicalProductEntity("dublName", 60.0, "testSku4",254);
+            ProductEntity productEntityTwo = new PhysicalProductEntity("dublName", 60.0, "testerSku4",254);
 
             given()
                     .contentType(ContentType.JSON)
-                    .body(product)
+                    .body(productEntity)
                     .when()
                     .post("/products")
                     .then()
                     .statusCode(201);
             given()
             .contentType(ContentType.JSON)
-                    .body(productTwo)
+                    .body(productEntityTwo)
                     .when()
                     .post("/products")
                     .then()
@@ -134,10 +133,10 @@
         @TestTransaction
         public void shouldTestPagination() {
             for(int i = 0; i <= 14; i++) {
-                Product product = new PhysicalProduct("testProductNum" + i, 1*i, "testSku" + i,30*i);
+                ProductEntity productEntity = new PhysicalProductEntity("testProductNum" + i, 1*i, "testSku" + i,30*i);
                 given()
                 .contentType(ContentType.JSON)
-                        .body(product)
+                        .body(productEntity)
                         .when()
                         .post("/products")
                         .then()
@@ -157,10 +156,10 @@
         @TestTransaction
         public void shouldTestSortingByName() {
             for(int i = 0; i <= 14; i++) {
-                Product product = new PhysicalProduct("testProductNo" + i, 1*i, "testSku" + i,30*i);
+                ProductEntity productEntity = new PhysicalProductEntity("testProductNo" + i, 1*i, "testSku" + i,30*i);
                 given()
                         .contentType(ContentType.JSON)
-                        .body(product)
+                        .body(productEntity)
                         .when()
                         .post("/products")
                         .then()
@@ -180,10 +179,10 @@
         @TestTransaction
         public void shouldTestSortingByPrice() {
             for(int i = 0; i <= 14; i++) {
-                Product product = new PhysicalProduct("testProductNo" + i, 1*i, "testSku" + i,30*i);
+                ProductEntity productEntity = new PhysicalProductEntity("testProductNo" + i, 1*i, "testSku" + i,30*i);
                 given()
                         .contentType(ContentType.JSON)
-                        .body(product)
+                        .body(productEntity)
                         .when()
                         .post("/products")
                         .then()
@@ -204,7 +203,7 @@
         @Test
         @TestTransaction
         public void shouldCreatePhysicalProduct() {
-            PhysicalProduct phProduct = new PhysicalProduct("EspressoPh", 60.0, "espph", 250);
+            PhysicalProductEntity phProduct = new PhysicalProductEntity("EspressoPh", 60.0, "espph", 250);
             given()
             .contentType(ContentType.JSON)
                     .body(phProduct)
@@ -225,7 +224,7 @@
         @Test
         @TestTransaction
         public void shouldCreateDigitalProduct() {
-            DigitalProduct dgProduct = new DigitalProduct("BrewInstructiong",60.00,"brewIns","www.diakonbrew.com/digital/manual/brewinstructions",105.41);
+            DigitalProductEntity dgProduct = new DigitalProductEntity("BrewInstructiong",60.00,"brewIns","www.diakonbrew.com/digital/manual/brewinstructions",105.41);
             given()
             .contentType(ContentType.JSON)
                     .body(dgProduct)
@@ -243,11 +242,11 @@
         @Test
         @TestTransaction
         public void shouldReturnProductFinalPrice() {
-            PhysicalProduct espresso = new PhysicalProduct("EspressoNew", 60.0, "espnew", 250);
+            PhysicalProductEntity espresso = new PhysicalProductEntity("EspressoNew", 60.0, "espnew", 250);
             Discount fixedDiscount = new Discount();
             fixedDiscount.discountType = "FIXED";
             fixedDiscount.discountValue = 10;
-            fixedDiscount.product = espresso;
+            fixedDiscount.productEntity = espresso;
             espresso.discounts.add(fixedDiscount);
            Integer id = given()
                     .contentType(ContentType.JSON)

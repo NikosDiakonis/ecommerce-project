@@ -5,7 +5,7 @@ import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.ecommerce.domain.Discount;
-import org.ecommerce.domain.Product;
+import org.ecommerce.domain.ProductEntity;
 import org.ecommerce.repository.ProductRepository;
 
 import java.util.List;
@@ -21,31 +21,31 @@ public class ProductService {
         this.repository = repository;
     }
 
-    public void addProduct(Product product) {
+    public void addProduct(ProductEntity productEntity) {
         //TODO: add @NotBlank validation on the request object and remove this validation check
-        if (product.name.equals("") || product.sku.equals("")) {
-            throw new IllegalArgumentException("Product name is empty");
+        if (productEntity.name.equals("") || productEntity.sku.equals("")) {
+            throw new IllegalArgumentException("ProductEntity name is empty");
             //TODO: add unique indexes on sku and name and remove this if
-        } else if (repository.count("sku = ?1", product.sku) > 0 || repository.count("name = ?1", product.name) > 0) {
-            throw new IllegalArgumentException("Duplicate Product");
+        } else if (repository.count("sku = ?1", productEntity.sku) > 0 || repository.count("name = ?1", productEntity.name) > 0) {
+            throw new IllegalArgumentException("Duplicate ProductEntity");
         } else {
-            // Re-attach discounts to this product before saving.
+            // Re-attach discounts to this productEntity before saving.
             // Because we use @JsonIgnore on Discount to prevent infinite JSON loops,
-            // the incoming JSON leaves discount.product as null.
+            // the incoming JSON leaves discount.productEntity as null.
             // We must set it manually here so Hibernate saves the foreign key (product_id) correctly.
-            if (product.discounts != null) {
-                for (Discount discount : product.discounts) {
-                    discount.product = product;
+            if (productEntity.discounts != null) {
+                for (Discount discount : productEntity.discounts) {
+                    discount.productEntity = productEntity;
                 }
             }
 
 
-            repository.persist(product);
+            repository.persist(productEntity);
             //TODO: after the persist function, the id will have a value, use this to create a response object
         }
     }
 
-    public List<Product> getAllProducts(int page, int size, String sortBy) {
+    public List<ProductEntity> getAllProducts(int page, int size, String sortBy) {
         return repository.findAll(Sort.by(sortBy)).page(Page.of(page,size)).list();
     }
 }

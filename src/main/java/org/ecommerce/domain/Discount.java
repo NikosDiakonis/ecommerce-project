@@ -11,5 +11,5 @@ public class Discount extends PanacheEntity {
     // Prevents infinite JSON loop.
     @JsonIgnore
     @ManyToOne
-    public Product product;
+    public ProductEntity productEntity;
 }
