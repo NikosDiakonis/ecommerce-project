@@ -30,9 +30,9 @@ public class ProductResource {
             //TODO: the service should not be void, and the response should have a productEntity with an Id.
             productService.addProduct(productEntity);
             //TODO: use enums instead of hardcoded numbers
-            return Response.status(201).entity(productEntity).build();
+            return Response.status(Response.Status.CREATED).entity(productEntity).build();
         } catch (IllegalArgumentException e) {
-            return Response.status(400).entity(productEntity).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(productEntity).build();
         }
         //TODO: do not try catch in every method, use an ExceptionMapper for the generic Exception and create a common error response.
     }
@@ -44,9 +44,9 @@ public class ProductResource {
     public Response addPhysical(PhysicalProductEntity product) {
         try {
             productService.addProduct(product);
-            return Response.status(201).entity(product).build();
+            return Response.status(Response.Status.CREATED).entity(product).build();
         } catch (IllegalArgumentException e) {
-            return Response.status(400).entity(product).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(product).build();
         }
     }
 
@@ -57,9 +57,9 @@ public class ProductResource {
     public Response addDigital(DigitalProductEntity product) {
         try {
             productService.addProduct(product);
-            return Response.status(201).entity(product).build();
+            return Response.status(Response.Status.CREATED).entity(product).build();
         } catch (IllegalArgumentException e) {
-            return Response.status(400).entity(product).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(product).build();
         }
     }
 
@@ -78,7 +78,7 @@ public class ProductResource {
         }else if("name".equals(sortBy)) {//TODO: This is redundant
             finalSort = "name";
         }
-        return Response.status(200).entity(productService.getAllProducts(page,size,finalSort)).build();
+        return Response.status(Response.Status.OK).entity(productService.getAllProducts(page,size,finalSort)).build();
     }
 
     @GET
@@ -87,6 +87,6 @@ public class ProductResource {
     public Response getPrice(@PathParam("id") Long id,@QueryParam("quantity") int quantity) {
         //TODO: add the findby to the productEntity service
         ProductEntity productEntity = ProductEntity.findById(id);
-        return Response.status(200).entity(pricingService.calculatePrice(productEntity,quantity)).build();
+        return Response.status(Response.Status.OK).entity(pricingService.calculatePrice(productEntity,quantity)).build();
     }
 }
