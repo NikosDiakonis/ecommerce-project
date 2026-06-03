@@ -16,10 +16,10 @@ public class ProductResource {
 
     //TODO: add access modifiers (private)
     @Inject
-    ProductService productService;
+    private ProductService productService;
 
     @Inject
-    PricingService pricingService;
+    private PricingService pricingService;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
