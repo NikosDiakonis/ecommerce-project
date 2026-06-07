@@ -13,6 +13,7 @@
     import static io.restassured.RestAssured.given;
     import static org.hamcrest.Matchers.equalTo;
     import static org.hamcrest.Matchers.hasItem;
+    import static org.hamcrest.core.Is.is;
     import static org.junit.jupiter.api.Assertions.assertEquals;
 
     @QuarkusTest
@@ -44,8 +45,9 @@
                     .when()
                     .get("/products")
                     .then()
-                        .statusCode(200);
-            //TODO: Assert empty list returned
+                        .statusCode(200)
+                    .body("isEmpty()", is(true));
+
         }
         @Test
         @TestTransaction
@@ -59,6 +61,7 @@
                     .post("/products")
                     .then()
                     .statusCode(201);
+
 
             given()
                     .when()
