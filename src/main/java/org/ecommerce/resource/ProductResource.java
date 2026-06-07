@@ -29,7 +29,6 @@ public class ProductResource {
         try {
             //TODO: the service should not be void, and the response should have a productEntity with an Id.
             productService.addProduct(productEntity);
-            //TODO: use enums instead of hardcoded numbers
             return Response.status(Response.Status.CREATED).entity(productEntity).build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(productEntity).build();
