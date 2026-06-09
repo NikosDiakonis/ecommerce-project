@@ -4,11 +4,17 @@
     import io.quarkus.test.junit.QuarkusTest;
     import io.restassured.http.ContentType;
     import jakarta.transaction.Transactional;
-    import org.ecommerce.domain.*;
+    import org.ecommerce.domain.DigitalProductEntity;
+    import org.ecommerce.domain.Discount;
     import org.ecommerce.domain.PhysicalProductEntity;
     import org.ecommerce.domain.ProductEntity;
     import org.junit.jupiter.api.BeforeEach;
     import org.junit.jupiter.api.Test;
+    import org.junit.jupiter.params.ParameterizedTest;
+    import org.junit.jupiter.params.provider.Arguments;
+    import org.junit.jupiter.params.provider.MethodSource;
+
+    import java.util.stream.Stream;
 
     import static io.restassured.RestAssured.given;
     import static org.hamcrest.Matchers.equalTo;
@@ -87,50 +93,39 @@
 
         }
 
-        @Test
+        @ParameterizedTest
+        @MethodSource("duplicateProducts")
         @TestTransaction
-        public void shouldReturn400WhenDuplicateSku(){
-            ProductEntity productEntity = new PhysicalProductEntity("testProductThree", 60.0, "duplSku",253);
-            ProductEntity productEntity2 = new PhysicalProductEntity("testProdTres", 60.0, "duplSku",253);
+        void testReturn400WhenDuplicateProduct(ProductEntity original, ProductEntity dublicate) {
             given()
                     .contentType(ContentType.JSON)
-                    .body(productEntity)
+                    .body(original)
                     .when()
                     .post("/products")
                     .then()
                     .statusCode(201);
 
-                    given()
-                            .contentType(ContentType.JSON)
-                            .body(productEntity2)
-                            .when()
-                            .post("/products")
-                            .then()
-                            .statusCode(400);
-
-        }
-        //TODO: Merge with the above test (data driven tests)
-        @Test
-        @TestTransaction
-        public void shouldReturn400WhenDuplicateName(){
-            ProductEntity productEntity = new PhysicalProductEntity("dublName", 60.0, "testSku4",254);
-            ProductEntity productEntityTwo = new PhysicalProductEntity("dublName", 60.0, "testerSku4",254);
-
             given()
                     .contentType(ContentType.JSON)
-                    .body(productEntity)
-                    .when()
-                    .post("/products")
-                    .then()
-                    .statusCode(201);
-            given()
-            .contentType(ContentType.JSON)
-                    .body(productEntityTwo)
+                    .body(dublicate)
                     .when()
                     .post("/products")
                     .then()
                     .statusCode(400);
         }
+        static Stream<Arguments> duplicateProducts() {
+            return Stream.of(
+                    Arguments.of( //dublicate Name
+                             new PhysicalProductEntity("dublName", 60.0, "testSkufour",254),
+                             new PhysicalProductEntity("dublName", 60.0, "testerSku4",254)
+                    ),
+                    Arguments.of(// dublicate sku
+                            new PhysicalProductEntity("doubleName",60,"sku4",254),
+                            new PhysicalProductEntity("dblName",60,"sku4",254)
+                    )
+            );
+        }
+
 
         @Test
         @TestTransaction
