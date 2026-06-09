@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class ProductEntityServiceTest {
+public class ProductServiceTest {
     @Test
     void shouldDenyWhenNameIsEmpty(){
         ProductEntity productEntity = new PhysicalProductEntity("", 60,"123",10);

@@ -17,7 +17,7 @@
     import static org.junit.jupiter.api.Assertions.assertEquals;
 
     @QuarkusTest
-    public class ProductEntityResourceTest {
+    public class ProductResourceTest {
         @BeforeEach
         @Transactional
         public void cleanDatabase() {
