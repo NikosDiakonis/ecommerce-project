@@ -8,6 +8,7 @@ import jakarta.ws.rs.core.Response;
 import org.ecommerce.domain.DigitalProductEntity;
 import org.ecommerce.domain.PhysicalProductEntity;
 import org.ecommerce.domain.ProductEntity;
+import org.ecommerce.domain.ProductSortOption;
 import org.ecommerce.service.PricingService;
 import org.ecommerce.service.ProductService;
 
@@ -67,24 +68,30 @@ public class ProductResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getProducts(@QueryParam("page") @DefaultValue("0") int page,
                                 @QueryParam("size") @DefaultValue("10") int size,
-                                @QueryParam("sortBy") String sortBy) {//TODO: Use enum for the sortby to avoid the ifs
-        String finalSort = "name";
+                                @QueryParam("sortBy") String sortBy) {
+        ProductSortOption finalSort = ProductSortOption.NAME;
+        if (sortBy != null) {
+            try {
+                finalSort = ProductSortOption.valueOf(sortBy.toUpperCase());
+            } catch (IllegalArgumentException e) {
 
-        if("price".equals(sortBy)) {
-            finalSort = "price";
-        }else if("sku".equals(sortBy)) {
-            finalSort = "sku";
-        }else if("name".equals(sortBy)) {//TODO: This is redundant
-            finalSort = "name";
+            }
         }
-        return Response.status(Response.Status.OK).entity(productService.getAllProducts(page,size,finalSort)).build();
-    }
+
+        return Response.status(Response.Status.OK)
+                .entity(productService.getAllProducts(page,size,finalSort))
+                .build();
+
+
+        }
+
+
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}/price")
     public Response getPrice(@PathParam("id") Long id,@QueryParam("quantity") int quantity) {
-        //TODO: add the findby to the productEntity service
+        //TODO: add the find by to the productEntity service
         ProductEntity productEntity = ProductEntity.findById(id);
         return Response.status(Response.Status.OK).entity(pricingService.calculatePrice(productEntity,quantity)).build();
     }

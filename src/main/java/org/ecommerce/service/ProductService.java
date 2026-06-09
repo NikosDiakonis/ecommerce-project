@@ -6,6 +6,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.ecommerce.domain.Discount;
 import org.ecommerce.domain.ProductEntity;
+import org.ecommerce.domain.ProductSortOption;
 import org.ecommerce.repository.ProductRepository;
 
 import java.util.List;
@@ -45,7 +46,8 @@ public class ProductService {
         }
     }
 
-    public List<ProductEntity> getAllProducts(int page, int size, String sortBy) {
-        return repository.findAll(Sort.by(sortBy)).page(Page.of(page,size)).list();
+    public List<ProductEntity> getAllProducts(int page, int size, ProductSortOption sortBy) {
+        String sortField = sortBy.name().toLowerCase();
+        return repository.findAll(Sort.by(sortField)).page(Page.of(page,size)).list();
     }
 }
