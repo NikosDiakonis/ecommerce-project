@@ -12,7 +12,7 @@ import org.ecommerce.domain.ProductSortOption;
 import org.ecommerce.service.PricingService;
 import org.ecommerce.service.ProductService;
 
-@Path("/products")//TODO: Check RESTfull guidelines, I think that plural is not recommended.
+@Path("/products")
 public class ProductResource {
 
 
