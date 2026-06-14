@@ -91,8 +91,8 @@ public class ProductResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}/price")
     public Response getPrice(@PathParam("id") Long id,@QueryParam("quantity") int quantity) {
-        //TODO: add the find by to the productEntity service
-        ProductEntity productEntity = ProductEntity.findById(id);
+
+        ProductEntity productEntity = productService.findById(id);
         return Response.status(Response.Status.OK).entity(pricingService.calculatePrice(productEntity,quantity)).build();
     }
 }

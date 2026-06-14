@@ -50,4 +50,8 @@ public class ProductService {
         String sortField = sortBy.name().toLowerCase();
         return repository.findAll(Sort.by(sortField)).page(Page.of(page,size)).list();
     }
+
+    public ProductEntity findById(Long id) {
+        return ProductEntity.findById(id);
+    }
 }
