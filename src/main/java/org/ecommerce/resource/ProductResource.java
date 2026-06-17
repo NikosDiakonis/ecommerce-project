@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.ecommerce.domain.DigitalProductEntity;
 import org.ecommerce.domain.PhysicalProductEntity;
 import org.ecommerce.domain.ProductEntity;
@@ -25,6 +26,7 @@ public class ProductResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
+    @Operation(summary = "Create a new product", description = "Adds a general product to the database.")
     //TODO: Create new DTO for the new productEntity request, do not use the db entity. Check mapstruct library for conversion.
     public Response addProduct(ProductEntity productEntity) {
         try {
@@ -41,6 +43,7 @@ public class ProductResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
     @Path("/physical")
+    @Operation(summary = "Create a physical product", description = "Adds a physical product with dimensions/weight.")
     public Response addPhysical(PhysicalProductEntity product) {
         try {
             productService.addProduct(product);
@@ -54,6 +57,7 @@ public class ProductResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
     @Path("/digital")
+    @Operation(summary = "Create a digital product", description = "Adds a digital product with download links.")
     public Response addDigital(DigitalProductEntity product) {
         try {
             productService.addProduct(product);
@@ -65,6 +69,10 @@ public class ProductResource {
 
 
     @GET
+    @Operation(
+            summary = "Get all products",
+            description = "Retrieves a list of all available products. Supports optional sorting."
+    )
     @Produces(MediaType.APPLICATION_JSON)
     public Response getProducts(@QueryParam("page") @DefaultValue("0") int page,
                                 @QueryParam("size") @DefaultValue("10") int size,
@@ -90,8 +98,8 @@ public class ProductResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}/price")
+    @Operation(summary = "Calculate product price", description = "Calculates total price based on product ID and quantity.")
     public Response getPrice(@PathParam("id") Long id,@QueryParam("quantity") int quantity) {
-
         ProductEntity productEntity = productService.findById(id);
         return Response.status(Response.Status.OK).entity(pricingService.calculatePrice(productEntity,quantity)).build();
     }

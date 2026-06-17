@@ -22,7 +22,8 @@ dependencies {
     testImplementation("io.quarkus:quarkus-junit")
     testImplementation("io.rest-assured:rest-assured")
     testImplementation("org.mockito:mockito-core:5.11.0")
-//TODO: add implementation 'io.quarkus:quarkus-smallrye-openapi'  and then add descriptions with annotations for your endpoints
+    implementation("io.quarkus:quarkus-smallrye-openapi")
+
 }
 
 group = "org.ecommerce"
