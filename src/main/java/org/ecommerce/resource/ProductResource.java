@@ -2,6 +2,7 @@ package org.ecommerce.resource;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -28,7 +29,7 @@ public class ProductResource {
     @Transactional
     @Operation(summary = "Create a new product", description = "Adds a general product to the database.")
     //TODO: Create new DTO for the new productEntity request, do not use the db entity. Check mapstruct library for conversion.
-    public Response addProduct(ProductEntity productEntity) {
+    public Response addProduct(@Valid ProductEntity productEntity) {
         try {
             //TODO: the service should not be void, and the response should have a productEntity with an Id.
             productService.addProduct(productEntity);
@@ -44,7 +45,7 @@ public class ProductResource {
     @Transactional
     @Path("/physical")
     @Operation(summary = "Create a physical product", description = "Adds a physical product with dimensions/weight.")
-    public Response addPhysical(PhysicalProductEntity product) {
+    public Response addPhysical(@Valid PhysicalProductEntity product) {
         try {
             productService.addProduct(product);
             return Response.status(Response.Status.CREATED).entity(product).build();
@@ -58,7 +59,7 @@ public class ProductResource {
     @Transactional
     @Path("/digital")
     @Operation(summary = "Create a digital product", description = "Adds a digital product with download links.")
-    public Response addDigital(DigitalProductEntity product) {
+    public Response addDigital(@Valid DigitalProductEntity product) {
         try {
             productService.addProduct(product);
             return Response.status(Response.Status.CREATED).entity(product).build();

@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +21,11 @@ import java.util.List;
 
 public abstract class ProductEntity extends PanacheEntity {
 
+    @NotBlank(message = "Name should not be blank")
    public String name;
+    @Positive(message = "Price must be greater than zero")
    public double price;
+    @NotBlank(message = "sku should not be blank")
    public String sku;
 
    @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL)

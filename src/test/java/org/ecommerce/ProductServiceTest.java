@@ -11,24 +11,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class ProductServiceTest {
-    @Test
-    void shouldDenyWhenNameIsEmpty(){
-        ProductEntity productEntity = new PhysicalProductEntity("", 60,"123",10);
-        ProductService service = new ProductService();
-        assertThrows(IllegalArgumentException.class, () -> {
 
-            service.addProduct(productEntity);
-        });
-    }
-
-    @Test
-    void shouldDenyWhenSKUIsEmpty(){
-        ProductEntity productEntity =new PhysicalProductEntity("", 60,"",10);
-        ProductService service = new ProductService();
-        assertThrows(IllegalArgumentException.class, () -> {
-            service.addProduct(productEntity);
-        });
-    }
 
     @Test
     void shouldDenyDuplicateSku(){

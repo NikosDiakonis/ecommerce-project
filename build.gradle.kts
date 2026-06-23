@@ -23,6 +23,7 @@ dependencies {
     testImplementation("io.rest-assured:rest-assured")
     testImplementation("org.mockito:mockito-core:5.11.0")
     implementation("io.quarkus:quarkus-smallrye-openapi")
+    implementation("io.quarkus:quarkus-hibernate-validator")
 
 }
 

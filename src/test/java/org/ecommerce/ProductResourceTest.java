@@ -79,8 +79,24 @@
 
         @Test
         @TestTransaction
-        public void shouldReturn400WhenEmptyField(){
-            ProductEntity productEntity = new PhysicalProductEntity("", 60.0, "",252);
+        public void shouldReturn400WhenEmptyName(){
+            ProductEntity productEntity = new PhysicalProductEntity("", 60.0, "RandomTest",252);
+
+            given()
+                    .contentType(ContentType.JSON)
+                    .body(productEntity)
+                    .when()
+                    .post("/products")
+                    .then()
+                    .statusCode(400);
+
+
+        }
+
+        @Test
+        @TestTransaction
+        public void shouldReturn400WhenEmptySKU(){
+            ProductEntity productEntity = new PhysicalProductEntity("RandomTest", 60.0, "",252);
 
             given()
                     .contentType(ContentType.JSON)
@@ -130,7 +146,7 @@
         @Test
         @TestTransaction
         public void shouldTestPagination() {
-            for(int i = 0; i <= 14; i++) {
+            for(int i = 1; i <= 14; i++) {
                 ProductEntity productEntity = new PhysicalProductEntity("testProductNum" + i, 1*i, "testSku" + i,30*i);
                 given()
                 .contentType(ContentType.JSON)
@@ -153,7 +169,7 @@
         @Test
         @TestTransaction
         public void shouldTestSortingByName() {
-            for(int i = 0; i <= 14; i++) {
+            for(int i = 1; i <= 14; i++) {
                 ProductEntity productEntity = new PhysicalProductEntity("testProductNo" + i, 1*i, "testSku" + i,30*i);
                 given()
                         .contentType(ContentType.JSON)
@@ -170,13 +186,13 @@
                     .then()
                     .statusCode(200)
                     .body("size()", equalTo(10))
-                    .body("[0].name", equalTo("testProductNo0"));
+                    .body("[0].name", equalTo("testProductNo1"));
 
         }
         @Test
         @TestTransaction
         public void shouldTestSortingByPrice() {
-            for(int i = 0; i <= 14; i++) {
+            for(int i = 1; i <= 14; i++) {
                 ProductEntity productEntity = new PhysicalProductEntity("testProductNo" + i, 1*i, "testSku" + i,30*i);
                 given()
                         .contentType(ContentType.JSON)
@@ -193,7 +209,7 @@
                     .then()
                     .statusCode(200)
                     .body("size()", equalTo(10))
-                    .body("[0].price", equalTo(0.0f));
+                    .body("[0].price", equalTo(1.0f));
 
 
         }

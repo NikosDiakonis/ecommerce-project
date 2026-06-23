@@ -23,11 +23,9 @@ public class ProductService {
     }
 
     public void addProduct(ProductEntity productEntity) {
-        //TODO: add @NotBlank validation on the request object and remove this validation check
-        if (productEntity.name.equals("") || productEntity.sku.equals("")) {
-            throw new IllegalArgumentException("ProductEntity name is empty");
-            //TODO: add unique indexes on sku and name and remove this if
-        } else if (repository.count("sku = ?1", productEntity.sku) > 0 || repository.count("name = ?1", productEntity.name) > 0) {
+
+        //TODO: add unique indexes on sku and name and remove this if
+        if (repository.count("sku = ?1", productEntity.sku) > 0 || repository.count("name = ?1", productEntity.name) > 0) {
             throw new IllegalArgumentException("Duplicate ProductEntity");
         } else {
             // Re-attach discounts to this productEntity before saving.
