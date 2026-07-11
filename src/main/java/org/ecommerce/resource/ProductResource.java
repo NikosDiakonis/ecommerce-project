@@ -30,15 +30,12 @@ public class ProductResource {
     @Operation(summary = "Create a new product", description = "Adds a general product to the database.")
     //TODO: Create new DTO for the new productEntity request, do not use the db entity. Check mapstruct library for conversion.
     public Response addProduct(@Valid ProductEntity productEntity) {
-        try {
+
             //TODO: the service should not be void, and the response should have a productEntity with an Id.
             productService.addProduct(productEntity);
             return Response.status(Response.Status.CREATED).entity(productEntity).build();
-        } catch (IllegalArgumentException e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(productEntity).build();
-        }
-        //TODO: do not try catch in every method, use an ExceptionMapper for the generic Exception and create a common error response.
     }
+
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -46,12 +43,10 @@ public class ProductResource {
     @Path("/physical")
     @Operation(summary = "Create a physical product", description = "Adds a physical product with dimensions/weight.")
     public Response addPhysical(@Valid PhysicalProductEntity product) {
-        try {
+
             productService.addProduct(product);
             return Response.status(Response.Status.CREATED).entity(product).build();
-        } catch (IllegalArgumentException e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(product).build();
-        }
+
     }
 
     @POST
@@ -60,12 +55,10 @@ public class ProductResource {
     @Path("/digital")
     @Operation(summary = "Create a digital product", description = "Adds a digital product with download links.")
     public Response addDigital(@Valid DigitalProductEntity product) {
-        try {
+
             productService.addProduct(product);
             return Response.status(Response.Status.CREATED).entity(product).build();
-        } catch (IllegalArgumentException e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(product).build();
-        }
+
     }
 
 
@@ -80,11 +73,9 @@ public class ProductResource {
                                 @QueryParam("sortBy") String sortBy) {
         ProductSortOption finalSort = ProductSortOption.NAME;
         if (sortBy != null) {
-            try {
-                finalSort = ProductSortOption.valueOf(sortBy.toUpperCase());
-            } catch (IllegalArgumentException e) {
 
-            }
+                finalSort = ProductSortOption.valueOf(sortBy.toUpperCase());
+
         }
 
         return Response.status(Response.Status.OK)
