@@ -24,10 +24,6 @@ public class ProductService {
 
     public void addProduct(ProductEntity productEntity) {
 
-        //TODO: add unique indexes on sku and name and remove this if
-        if (repository.count("sku = ?1", productEntity.sku) > 0 || repository.count("name = ?1", productEntity.name) > 0) {
-            throw new IllegalArgumentException("Duplicate ProductEntity");
-        } else {
             // Re-attach discounts to this productEntity before saving.
             // Because we use @JsonIgnore on Discount to prevent infinite JSON loops,
             // the incoming JSON leaves discount.productEntity as null.
@@ -42,7 +38,7 @@ public class ProductService {
             repository.persist(productEntity);
             //TODO: after the persist function, the id will have a value, use this to create a response object
         }
-    }
+
 
     public List<ProductEntity> getAllProducts(int page, int size, ProductSortOption sortBy) {
         String sortField = sortBy.name().toLowerCase();

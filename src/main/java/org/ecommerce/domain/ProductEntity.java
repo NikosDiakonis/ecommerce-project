@@ -21,10 +21,12 @@ import java.util.List;
 
 public abstract class ProductEntity extends PanacheEntity {
 
+    @Column(unique = true)
     @NotBlank(message = "Name should not be blank")
    public String name;
     @Positive(message = "Price must be greater than zero")
    public double price;
+    @Column(unique = true)
     @NotBlank(message = "sku should not be blank")
    public String sku;
 
