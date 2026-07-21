@@ -1,62 +1,48 @@
-# ecommerce-project
+# QuarkusShop
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+A learning-focused e-commerce backend built with a TDD-first workflow,
+mentored code reviews, and RFC 9457-compliant error handling.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+## What it does
+
+A REST API for an e-commerce platform, organized around four domains:
+
+- **Catalog** — product management (CRUD, unique SKU/name constraints) — *implemented*
+- **Cart & Pricing** — cart operations, priority-based discount logic — *planned*
+- **Payments** — payment processing — *planned*
+- **Orders & Notifications** — order lifecycle and notifications — *planned*
+
+## Tech stack
+
+- **Java** / **Quarkus** — application framework
+- **Hibernate Panache** — ORM / persistence
+- **JAX-RS** — REST endpoints
+- **PostgreSQL** — database
+- **Gradle** — build tool
+- **JUnit 5** + **REST-assured** — unit & integration testing
+- **OpenAPI / Swagger** — API documentation
+- **Jakarta Bean Validation** — request validation
 
 ## Running the application in dev mode
 
-You can run your application in dev mode that enables live coding using:
+Run in dev mode (live coding enabled):
 
 ```shell script
 ./gradlew quarkusDev
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+> **NOTE:** Quarkus Dev UI is available in dev mode at <http://localhost:8080/q/dev/>.
 
 ## Packaging and running the application
 
-The application can be packaged using:
+Package the application:
 
 ```shell script
 ./gradlew build
 ```
 
-It produces the `quarkus-run.jar` file in the `build/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `build/quarkus-app/lib/` directory.
-
-The application is now runnable using `java -jar build/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
+This produces `quarkus-run.jar` in `build/quarkus-app/`. Run it with:
 
 ```shell script
-./gradlew build -Dquarkus.package.jar.type=uber-jar
+java -jar build/quarkus-app/quarkus-run.jar
 ```
-
-The application, packaged as an _über-jar_, is now runnable using `java -jar build/*-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using:
-
-```shell script
-./gradlew build -Dquarkus.native.enabled=true
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
-
-```shell script
-./gradlew build -Dquarkus.native.enabled=true -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./build/ecommerce-project-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/gradle-tooling>.
-
-## Provided Code
-
-### REST
-
-Easily start your REST Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
