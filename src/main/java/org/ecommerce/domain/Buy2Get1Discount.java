@@ -6,6 +6,9 @@ public class Buy2Get1Discount implements DiscountStrategy {
 
     @Override
     public double applyDiscount(double price,int quantity) {
+        if (quantity < 0){
+            throw new IllegalArgumentException("Quantity cannot be negative : " + quantity);
+        }
        int freeAmount = quantity / 3;
        int paidAmount = quantity - freeAmount;
        double result = paidAmount * price;
