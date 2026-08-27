@@ -3,6 +3,7 @@ package org.ecommerce.domain;
 public class Buy2Get1Discount implements DiscountStrategy {
 
 
+
     @Override
     public double applyDiscount(double price,int quantity) {
        int freeAmount = quantity / 3;
