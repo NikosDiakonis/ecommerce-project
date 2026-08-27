@@ -1,8 +1,7 @@
 package org.ecommerce.domain;
 
 public class Buy2Get1Discount implements DiscountStrategy {
-    public Buy2Get1Discount() {
-    }
+
 
     @Override
     public double applyDiscount(double price,int quantity) {

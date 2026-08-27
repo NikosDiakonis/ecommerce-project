@@ -11,7 +11,7 @@ public class PhysicalProductEntity extends ProductEntity {
 
 
     public PhysicalProductEntity() {
-        //JPA needs this
+
     }
 
     public PhysicalProductEntity(String name, double price, String sku, double weight) {
