@@ -251,7 +251,7 @@
                     .get("/products")
                     .then()
                     .statusCode(200)
-                    .body("fileSize", hasItem(105.41f));
+                    .body("fileSizeInBytes", hasItem(105.41f));
         }
 
         @Test
