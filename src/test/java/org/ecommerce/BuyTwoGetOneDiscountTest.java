@@ -10,8 +10,8 @@ public class BuyTwoGetOneDiscountTest {
     @Test
     public void testBuyTwoGetOneDiscount() {
         Buy2Get1Discount b1 = new Buy2Get1Discount();
-        double result = b1.applyDiscount(20,4);
-        assertEquals(60,result);
+        double result = b1.applyDiscount(20, 4);
+        assertEquals(60, result);
 
     }
 
@@ -22,3 +22,5 @@ public class BuyTwoGetOneDiscountTest {
                 () -> b1.applyDiscount(20, -5));
     }
 }
+
+

@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 @Entity
 public class Discount extends PanacheEntity {
-    public String discountType;
+    public DiscountType discountType;
     public double discountValue;
     // Prevents infinite JSON loop.
     @JsonIgnore

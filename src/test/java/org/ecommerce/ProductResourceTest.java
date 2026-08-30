@@ -4,10 +4,7 @@
     import io.quarkus.test.junit.QuarkusTest;
     import io.restassured.http.ContentType;
     import jakarta.transaction.Transactional;
-    import org.ecommerce.domain.DigitalProductEntity;
-    import org.ecommerce.domain.Discount;
-    import org.ecommerce.domain.PhysicalProductEntity;
-    import org.ecommerce.domain.ProductEntity;
+    import org.ecommerce.domain.*;
     import org.junit.jupiter.api.BeforeEach;
     import org.junit.jupiter.api.Disabled;
     import org.junit.jupiter.api.Test;
@@ -259,7 +256,7 @@
         public void shouldReturnProductFinalPrice() {
             PhysicalProductEntity espresso = new PhysicalProductEntity("EspressoNew", 60.0, "espnew", 250);
             Discount fixedDiscount = new Discount();
-            fixedDiscount.discountType = "FIXED";
+            fixedDiscount.discountType = DiscountType.FIXED;
             fixedDiscount.discountValue = 10;
             fixedDiscount.productEntity = espresso;
             espresso.discounts.add(fixedDiscount);
