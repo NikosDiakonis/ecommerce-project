@@ -22,7 +22,7 @@ public class ProductService {
         this.repository = repository;
     }
 
-    public void addProduct(ProductEntity productEntity) {
+    public ProductEntity addProduct(ProductEntity productEntity) {
 
             // Re-attach discounts to this productEntity before saving.
             // Because we use @JsonIgnore on Discount to prevent infinite JSON loops,
@@ -36,7 +36,8 @@ public class ProductService {
 
 
             repository.persist(productEntity);
-            //TODO: after the persist function, the id will have a value, use this to create a response object
+            return productEntity;
+
         }
 
 

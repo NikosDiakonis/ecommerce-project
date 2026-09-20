@@ -31,9 +31,8 @@ public class ProductResource {
     //TODO: Create new DTO for the new productEntity request, do not use the db entity. Check mapstruct library for conversion.
     public Response addProduct(@Valid ProductEntity productEntity) {
 
-            //TODO: the service should not be void, and the response should have a productEntity with an Id.
-            productService.addProduct(productEntity);
-            return Response.status(Response.Status.CREATED).entity(productEntity).build();
+            ProductEntity saved = productService.addProduct(productEntity);
+            return Response.status(Response.Status.CREATED).entity(saved).build();
     }
 
 
@@ -44,8 +43,8 @@ public class ProductResource {
     @Operation(summary = "Create a physical product", description = "Adds a physical product with dimensions/weight.")
     public Response addPhysical(@Valid PhysicalProductEntity product) {
 
-            productService.addProduct(product);
-            return Response.status(Response.Status.CREATED).entity(product).build();
+        ProductEntity saved = productService.addProduct(product);
+        return Response.status(Response.Status.CREATED).entity(saved).build();
 
     }
 
@@ -56,8 +55,8 @@ public class ProductResource {
     @Operation(summary = "Create a digital product", description = "Adds a digital product with download links.")
     public Response addDigital(@Valid DigitalProductEntity product) {
 
-            productService.addProduct(product);
-            return Response.status(Response.Status.CREATED).entity(product).build();
+        ProductEntity saved = productService.addProduct(product);
+        return Response.status(Response.Status.CREATED).entity(saved).build();
 
     }
 
