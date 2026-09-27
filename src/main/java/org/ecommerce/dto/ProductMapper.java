@@ -6,6 +6,6 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "cdi")
 public interface ProductMapper {
-    PhysicalProductEntity toPhysicalEntity(ProductRequestDTO dto);
-    DigitalProductEntity toDigitalEntity (ProductRequestDTO dto);
+    PhysicalProductEntity toPhysicalEntity(PhysicalProductRequestDTO dto);
+    DigitalProductEntity toDigitalEntity (DigitalProductRequestDTO dto);
 }

@@ -7,10 +7,10 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.ecommerce.domain.DigitalProductEntity;
-import org.ecommerce.domain.PhysicalProductEntity;
 import org.ecommerce.domain.ProductEntity;
 import org.ecommerce.domain.ProductSortOption;
+import org.ecommerce.dto.DigitalProductRequestDTO;
+import org.ecommerce.dto.PhysicalProductRequestDTO;
 import org.ecommerce.dto.ProductMapper;
 import org.ecommerce.service.PricingService;
 import org.ecommerce.service.ProductService;
@@ -36,11 +36,9 @@ public class ProductResource {
     @Transactional
     @Path("/physical")
     @Operation(summary = "Create a physical product", description = "Adds a physical product with dimensions/weight.")
-    public Response addPhysical(@Valid PhysicalProductEntity product) {
-
-        ProductEntity saved = productService.addProduct(product);
+    public Response addPhysical(@Valid PhysicalProductRequestDTO dto) {
+        ProductEntity saved = productService.addProduct(productMapper.toPhysicalEntity(dto));
         return Response.status(Response.Status.CREATED).entity(saved).build();
-
     }
 
     @POST
@@ -48,9 +46,9 @@ public class ProductResource {
     @Transactional
     @Path("/digital")
     @Operation(summary = "Create a digital product", description = "Adds a digital product with download links.")
-    public Response addDigital(@Valid DigitalProductEntity product) {
+    public Response addDigital(@Valid DigitalProductRequestDTO dto) {
 
-        ProductEntity saved = productService.addProduct(product);
+        ProductEntity saved = productService.addProduct(productMapper.toDigitalEntity(dto));
         return Response.status(Response.Status.CREATED).entity(saved).build();
 
     }
