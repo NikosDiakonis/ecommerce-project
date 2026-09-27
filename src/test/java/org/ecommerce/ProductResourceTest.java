@@ -37,7 +37,7 @@
                     .contentType(ContentType.JSON)
                     .body(productEntity)
                     .when()
-                    .post("/products")
+                    .post("/products/physical")
                     .then()
                             .statusCode(201);
         }
@@ -62,7 +62,7 @@
                     .contentType(ContentType.JSON)
                     .body(productEntity)
                     .when()
-                    .post("/products")
+                    .post("/products/physical")
                     .then()
                     .statusCode(201);
 
@@ -84,7 +84,7 @@
                     .contentType(ContentType.JSON)
                     .body(productEntity)
                     .when()
-                    .post("/products")
+                    .post("/products/physical")
                     .then()
                     .statusCode(400);
 
@@ -100,7 +100,7 @@
                     .contentType(ContentType.JSON)
                     .body(productEntity)
                     .when()
-                    .post("/products")
+                    .post("/products/physical")
                     .then()
                     .statusCode(400);
 
@@ -115,7 +115,7 @@
                     .contentType(ContentType.JSON)
                     .body(original)
                     .when()
-                    .post("/products")
+                    .post("/products/physical")
                     .then()
                     .statusCode(201);
 
@@ -123,7 +123,7 @@
                     .contentType(ContentType.JSON)
                     .body(dublicate)
                     .when()
-                    .post("/products")
+                    .post("/products/physical")
                     .then()
                     .statusCode(400);
         }
@@ -150,7 +150,7 @@
                 .contentType(ContentType.JSON)
                         .body(productEntity)
                         .when()
-                        .post("/products")
+                        .post("/products/physical")
                         .then()
                         .statusCode(201);
             }
@@ -173,7 +173,7 @@
                         .contentType(ContentType.JSON)
                         .body(productEntity)
                         .when()
-                        .post("/products")
+                        .post("/products/physical")
                         .then()
                         .statusCode(201);
             }
@@ -196,7 +196,7 @@
                         .contentType(ContentType.JSON)
                         .body(productEntity)
                         .when()
-                        .post("/products")
+                        .post("/products/physical")
                         .then()
                         .statusCode(201);
             }

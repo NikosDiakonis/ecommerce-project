@@ -24,6 +24,9 @@ dependencies {
     testImplementation("org.mockito:mockito-core:5.11.0")
     implementation("io.quarkus:quarkus-smallrye-openapi")
     implementation("io.quarkus:quarkus-hibernate-validator")
+    implementation("org.mapstruct:mapstruct:1.5.5.Final")
+    annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
+
 
 }
 

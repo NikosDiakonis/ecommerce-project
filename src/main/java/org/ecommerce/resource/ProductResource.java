@@ -11,6 +11,7 @@ import org.ecommerce.domain.DigitalProductEntity;
 import org.ecommerce.domain.PhysicalProductEntity;
 import org.ecommerce.domain.ProductEntity;
 import org.ecommerce.domain.ProductSortOption;
+import org.ecommerce.dto.ProductMapper;
 import org.ecommerce.service.PricingService;
 import org.ecommerce.service.ProductService;
 
@@ -24,16 +25,10 @@ public class ProductResource {
     @Inject
     private PricingService pricingService;
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Transactional
-    @Operation(summary = "Create a new product", description = "Adds a general product to the database.")
-    //TODO: Create new DTO for the new productEntity request, do not use the db entity. Check mapstruct library for conversion.
-    public Response addProduct(@Valid ProductEntity productEntity) {
+    @Inject
+    private ProductMapper productMapper;
 
-            ProductEntity saved = productService.addProduct(productEntity);
-            return Response.status(Response.Status.CREATED).entity(saved).build();
-    }
+
 
 
     @POST
