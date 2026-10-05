@@ -7,6 +7,8 @@ import jakarta.inject.Inject;
 import org.ecommerce.domain.Discount;
 import org.ecommerce.domain.ProductEntity;
 import org.ecommerce.domain.ProductSortOption;
+import org.ecommerce.dto.DiscountRequestDTO;
+import org.ecommerce.dto.ProductMapper;
 import org.ecommerce.repository.ProductRepository;
 
 import java.util.List;
@@ -15,6 +17,8 @@ import java.util.List;
 public class ProductService {
     @Inject
     ProductRepository repository;
+
+    @Inject ProductMapper mapper;
 
     public ProductService() {}
 
@@ -49,4 +53,15 @@ public class ProductService {
     public ProductEntity findById(Long id) {
         return ProductEntity.findById(id);
     }
+
+    public Discount addDiscount (Long productId, DiscountRequestDTO dto){
+
+      ProductEntity entity =  findById(productId);
+      Discount discount = mapper.toDiscount(dto);
+      discount.productEntity = entity;
+      discount.persist();
+      return discount;
+
+    }
 }
+

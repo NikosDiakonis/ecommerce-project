@@ -7,9 +7,11 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.ecommerce.domain.Discount;
 import org.ecommerce.domain.ProductEntity;
 import org.ecommerce.domain.ProductSortOption;
 import org.ecommerce.dto.DigitalProductRequestDTO;
+import org.ecommerce.dto.DiscountRequestDTO;
 import org.ecommerce.dto.PhysicalProductRequestDTO;
 import org.ecommerce.dto.ProductMapper;
 import org.ecommerce.service.PricingService;
@@ -87,4 +89,19 @@ public class ProductResource {
         ProductEntity productEntity = productService.findById(id);
         return Response.status(Response.Status.OK).entity(pricingService.calculatePrice(productEntity,quantity)).build();
     }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Transactional
+    @Path("/{id}/discounts")
+    @Operation(summary = "Create a discount", description = "Adds a discount to a product.")
+    public Response addDiscount(@PathParam("id") Long id,
+                                @Valid DiscountRequestDTO dto) {
+
+        Discount discount = productService.addDiscount(id, dto);
+        return Response.status(Response.Status.CREATED).entity(discount).build();
+    }
+
+
 }
+

@@ -5,6 +5,7 @@
     import io.restassured.http.ContentType;
     import jakarta.transaction.Transactional;
     import org.ecommerce.domain.*;
+    import org.ecommerce.dto.DiscountRequestDTO;
     import org.junit.jupiter.api.BeforeEach;
     import org.junit.jupiter.api.Disabled;
     import org.junit.jupiter.api.Test;
@@ -251,18 +252,14 @@
                     .body("fileSizeInBytes", hasItem(105.41f));
         }
 
-        @Disabled("TODO: re-enable once POST /products/{id}/discounts endpoint is implemented. " +
-                "Discounts should be added via a separate endpoint, not bundled with product creation.")
         @Test
         @TestTransaction
         public void shouldReturnProductFinalPrice() {
+
+
             PhysicalProductEntity espresso = new PhysicalProductEntity("EspressoNew", 60.0, "espnew", 250);
-            Discount fixedDiscount = new Discount();
-            fixedDiscount.discountType = DiscountType.FIXED;
-            fixedDiscount.discountValue = 10;
-            fixedDiscount.productEntity = espresso;
-            espresso.discounts.add(fixedDiscount);
-           Integer id = given()
+
+            Integer id = given()
                     .contentType(ContentType.JSON)
                     .body(espresso)
                     .post("/products/physical")
@@ -271,9 +268,17 @@
                     .extract().path("id");
 
 
-            // REST-assured parses plain JSON numbers without explicit type info.
-            // Extracting as Double.class ensures a robust type comparison
-            // to avoid AssertionError due to type mismatch (Double vs Float/BigDecimal).
+            DiscountRequestDTO discount = new DiscountRequestDTO();
+            discount.discountType = DiscountType.FIXED;
+            discount.discountValue = 10;
+
+            given()
+                    .contentType(ContentType.JSON)
+                    .body(discount)
+                    .post("/products/" + id + "/discounts")
+                    .then()
+                    .statusCode(201);
+
             Double finalPrice = given()
                     .contentType(ContentType.JSON)
                     .get("/products/" + id + "/price?quantity=3")
@@ -282,7 +287,5 @@
                     .extract().as(Double.class);
 
             assertEquals(150.0, finalPrice);
-
-
         }
     }
