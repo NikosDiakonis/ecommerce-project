@@ -16,6 +16,7 @@ import org.ecommerce.dto.PhysicalProductRequestDTO;
 import org.ecommerce.dto.ProductMapper;
 import org.ecommerce.service.PricingService;
 import org.ecommerce.service.ProductService;
+import org.glassfish.jaxb.core.v2.TODO;
 
 @Path("/products")
 public class ProductResource {
@@ -33,6 +34,8 @@ public class ProductResource {
 
 
     //TODO: try to merge those two POST endpoints to one, and leverage the oneOf in OPENAPI definition. Also consider using extension for the definitions of the request objects.
+
+    //TODO: add responses definitions for OpenAPI
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

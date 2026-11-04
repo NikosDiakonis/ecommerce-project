@@ -23,3 +23,4 @@ public class DuplicateProductExceptionMapper implements ExceptionMapper<Rollback
     }
     }
 //TODO: Add test for this mapper
+//TODO: This does not work, when a duplicate is entered a ConstraintViolationException is thrown that causes 500 error.
