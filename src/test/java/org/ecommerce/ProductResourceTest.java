@@ -107,7 +107,8 @@
 
 
         }
-        @Disabled("TODO: re-enable once ExceptionMapper for DB unique constraint is implemented")
+        //TODO: Fix this test, it fails because the status code is 500.
+//        @Disabled("TODO: re-enable once ExceptionMapper for DB unique constraint is implemented")
         @ParameterizedTest
         @MethodSource("duplicateProducts")
         @TestTransaction

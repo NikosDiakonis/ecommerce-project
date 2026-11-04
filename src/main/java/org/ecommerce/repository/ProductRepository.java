@@ -6,5 +6,5 @@ import org.ecommerce.domain.ProductEntity;
 
 @ApplicationScoped
 public class ProductRepository implements PanacheRepository<ProductEntity> {
-
+//TODO: create scripts for database creation and use them on startup see: https://trello.com/c/WWTIYn6X
 }

@@ -25,6 +25,7 @@ public class ProductService {
     public ProductService(ProductRepository repository) {
         this.repository = repository;
     }
+    //TODO: Remove unused constructor
 
     public ProductEntity addProduct(ProductEntity productEntity) {
 
@@ -33,13 +34,16 @@ public class ProductService {
             // the incoming JSON leaves discount.productEntity as null.
             // We must set it manually here so Hibernate saves the foreign key (product_id) correctly.
             if (productEntity.discounts != null) {
+                //TODO: Add a test with null discounts
                 for (Discount discount : productEntity.discounts) {
+                    //TODO: add a test with non empty discounts list
                     discount.productEntity = productEntity;
                 }
             }
 
 
             repository.persist(productEntity);
+            //TODO: Add a message broker to publish an event that a product was added. Decide if a topic (publish-subscribe model with durable subscription). see: https://trello.com/c/SElRZ9gJ
             return productEntity;
 
         }

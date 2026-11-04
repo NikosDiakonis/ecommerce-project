@@ -32,6 +32,7 @@ public class ProductResource {
 
 
 
+    //TODO: try to merge those two POST endpoints to one, and leverage the oneOf in OPENAPI definition. Also consider using extension for the definitions of the request objects.
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -49,7 +50,6 @@ public class ProductResource {
     @Path("/digital")
     @Operation(summary = "Create a digital product", description = "Adds a digital product with download links.")
     public Response addDigital(@Valid DigitalProductRequestDTO dto) {
-
         ProductEntity saved = productService.addProduct(productMapper.toDigitalEntity(dto));
         return Response.status(Response.Status.CREATED).entity(saved).build();
 
@@ -102,6 +102,10 @@ public class ProductResource {
         return Response.status(Response.Status.CREATED).entity(discount).build();
     }
 
+    //TODO: Create new response objects, to avoid returning database entities. Database entities should not know about jackson etc.
 
+    //TODO: add update product endpoint. see: https://trello.com/c/HzjFuM9t
+
+    //TODO: Add delete product functionality see: https://trello.com/c/Q4ljZhwI
 }
 

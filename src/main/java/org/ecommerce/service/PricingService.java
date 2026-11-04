@@ -18,6 +18,7 @@ public class PricingService {
     public PricingService(DiscountStrategyFactory factory) {
         this.factory = factory;
     }
+    //TODO: Delete unused constructor
 
     public double calculatePrice(ProductEntity productEntity, int quantity) {
         double bestValue = productEntity.price*quantity;
@@ -36,6 +37,7 @@ public class PricingService {
             if (finalResult > bestValue) {
                 finalResult = bestValue;
             }
+            //TODO: add a test that the if condition is false
         }
         return finalResult;
     }

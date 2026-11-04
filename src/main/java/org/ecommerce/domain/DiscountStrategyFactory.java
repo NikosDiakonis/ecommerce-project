@@ -20,9 +20,9 @@ public class DiscountStrategyFactory {
 
             case B2G1:
                 return new Buy2Get1Discount();
-
             default:
                 throw new IllegalArgumentException("Unknown discount type: " + discountType);
+                //TODO: Remove default, assign discount strategy to a variable and return that at one point.
         }
     }
 }

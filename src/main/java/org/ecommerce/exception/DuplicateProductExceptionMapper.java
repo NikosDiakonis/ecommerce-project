@@ -22,3 +22,4 @@ public class DuplicateProductExceptionMapper implements ExceptionMapper<Rollback
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
     }
     }
+//TODO: Add test for this mapper
