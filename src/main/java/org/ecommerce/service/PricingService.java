@@ -11,15 +11,6 @@ public class PricingService {
 
     private  DiscountStrategyFactory factory = new  DiscountStrategyFactory();
 
-
-
-    public PricingService(){}
-
-    public PricingService(DiscountStrategyFactory factory) {
-        this.factory = factory;
-    }
-    //TODO: Delete unused constructor
-
     public double calculatePrice(ProductEntity productEntity, int quantity) {
         double bestValue = productEntity.price*quantity;
         double finalResult = bestValue;

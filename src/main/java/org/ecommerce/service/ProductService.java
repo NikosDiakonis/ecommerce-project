@@ -20,13 +20,6 @@ public class ProductService {
 
     @Inject ProductMapper mapper;
 
-    public ProductService() {}
-
-    public ProductService(ProductRepository repository) {
-        this.repository = repository;
-    }
-    //TODO: Remove unused constructor
-
     public ProductEntity addProduct(ProductEntity productEntity) {
 
             // Re-attach discounts to this productEntity before saving.
