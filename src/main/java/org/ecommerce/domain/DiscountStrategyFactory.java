@@ -7,22 +7,19 @@ public class DiscountStrategyFactory {
 
     public DiscountStrategy getStrategy(DiscountType discountType, double discountValue) {
 
+
         if (discountType == null) {
             throw new IllegalArgumentException("Discount type must not be null");
         }
 
-        switch (discountType) {
-            case FIXED:
-                return new FixedDiscount(discountValue);
+        DiscountStrategy discountStrategy = switch (discountType) {
+            case FIXED -> new FixedDiscount(discountValue);
 
-            case PERCENT:
-                return new PercentageDiscount(discountValue);
+            case PERCENT -> new PercentageDiscount(discountValue);
 
-            case B2G1:
-                return new Buy2Get1Discount();
-            default:
-                throw new IllegalArgumentException("Unknown discount type: " + discountType);
-                //TODO: Remove default, assign discount strategy to a variable and return that at one point.
-        }
+            case B2G1 -> new Buy2Get1Discount();
+
+        };
+        return  discountStrategy;
     }
 }
